@@ -428,7 +428,3 @@ stateDiagram-v2
 - As ilustrações dos produtos são SVGs próprios, feitos para este projeto.
 
 ---
-
-## Autor
-
-Desenvolvido por **Lucas** para a disciplina de Desenvolvimento Front End, com orientação do Prof. Jean Holguim.
