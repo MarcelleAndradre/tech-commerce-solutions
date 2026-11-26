@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Tech Commerce Solutions</title>
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <meta name="description" content="Tech Commerce Solutions: computadores, notebooks, periféricos, equipamentos gamer, assistência técnica e infraestrutura de TI em Manaus.">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+
+  <!-- Fontes: Unbounded (títulos), Sora (texto) e JetBrains Mono (dados técnicos) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@300;400;600;700&family=Unbounded:wght@500;700;800&display=swap">
+
+  <!-- Aplica o tema salvo ANTES de desenhar a página (evita "piscar" claro/escuro) -->
+  <script>
+    (function () {
+      var root = document.documentElement, theme = null;
+      try { theme = localStorage.getItem('tcs-theme'); } catch (e) {}
+      if (!theme) theme = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      root.classList.toggle('dark', theme === 'dark');
+    })();
+  </script>
+
+  <!-- Tailwind CSS (Play CDN) + configuração com as cores do projeto -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bg: 'rgb(var(--bg) / <alpha-value>)',
+            surface: 'rgb(var(--surface) / <alpha-value>)',
+            fg: 'rgb(var(--fg) / <alpha-value>)',
+            muted: 'rgb(var(--muted) / <alpha-value>)',
+            line: 'rgb(var(--line) / <alpha-value>)',
+            c1: 'rgb(var(--c1) / <alpha-value>)',
+            c2: 'rgb(var(--c2) / <alpha-value>)',
+            c3: 'rgb(var(--c3) / <alpha-value>)',
+            onaccent: 'rgb(var(--on-accent) / <alpha-value>)'
+          },
+          fontFamily: {
+            display: ['Unbounded', 'Segoe UI', 'system-ui', 'sans-serif'],
+            sans: ['Sora', 'Segoe UI', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'Consolas', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app" class="relative font-sans text-fg">
+
+  <!-- Fundo: manchas de cor sobrepostas + grade HUD -->
+  <div class="aurora" aria-hidden="true">
+    <span class="aurora-blob a1"></span>
+    <span class="aurora-blob a2"></span>
+    <span class="aurora-blob a3"></span>
+    <span class="hud-grid"></span>
+  </div>
+
+  <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
+
+  <!-- ===================== 1. CABEÇALHO ===================== -->
+  <header id="site-header" class="site-header">
+    <div class="wrap flex h-16 items-center justify-between gap-3 lg:h-20">
+      <a href="#inicio" class="flex shrink-0 items-center gap-3 rounded-md" aria-label="Tech Commerce Solutions, voltar ao início">
+        <span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="leading-none">
+          <span class="block font-display text-[15px] font-bold tracking-tight">Tech Commerce</span>
+          <span class="mt-1 block font-mono text-[10px] uppercase tracking-[.34em] text-muted">Solutions</span>
+        </span>
+      </a>
+
+      <nav class="hidden lg:block" aria-label="Menu principal">
+        <ul class="nav-pill flex items-center gap-1 p-1">
+          <li><a class="nav-link" href="#inicio">Início</a></li>
+          <li><a class="nav-link" href="#servicos">Serviços</a></li>
+          <li><a class="nav-link" href="#produtos">Produtos</a></li>
+          <li><a class="nav-link" href="#sobre">Sobre</a></li>
+          <li><a class="nav-link" href="#rodape">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button id="theme-toggle" class="icon-btn" type="button" aria-label="Alternar tema claro e escuro">
+          <!-- sol (aparece no tema escuro) -->
+          <svg class="hidden h-5 w-5 dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg>
+          <!-- lua (aparece no tema claro) -->
+          <svg class="h-5 w-5 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/></svg>
+        </button>
+
+        <button id="cart-btn" class="icon-btn relative" type="button" aria-label="Carrinho: 0 itens" aria-haspopup="dialog">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2.2l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.2L21 8H6.1"/><circle cx="9.5" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/></svg>
+          <span id="cart-count" class="cart-badge" hidden>0</span>
+        </button>
+
+        <button class="btn btn-primary header-contact" type="button" data-open-contact>
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.7-5.2A8.5 8.5 0 1 1 21 12Z"/></svg>
+          Contato
+        </button>
+
+        <button id="menu-toggle" class="icon-btn lg:hidden" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu mobile -->
+    <div id="mobile-menu" class="mobile-menu lg:hidden" hidden>
+      <nav class="wrap pb-6 pt-2" aria-label="Menu mobile">
+        <ul class="grid gap-1">
+          <li><a class="mobile-link" href="#inicio"><span>Início</span><small>01</small></a></li>
+          <li><a class="mobile-link" href="#servicos"><span>Serviços</span><small>02</small></a></li>
+          <li><a class="mobile-link" href="#produtos"><span>Produtos</span><small>03</small></a></li>
+          <li><a class="mobile-link" href="#sobre"><span>Sobre</span><small>04</small></a></li>
+          <li><a class="mobile-link" href="#rodape"><span>Contato</span><small>05</small></a></li>
+        </ul>
+        <button class="btn btn-primary mt-4 w-full justify-center" type="button" data-open-contact>Fale com um especialista</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ===================== 2. BANNER PRINCIPAL (HERO) ===================== -->
+    <span class="anchor" id="inicio"></span>
+    <section class="hero stack stack-hero" data-section="inicio">
+      <div class="wrap grid items-center gap-12 pb-10 pt-10 lg:grid-cols-[1.05fr_1fr] lg:gap-6 lg:pb-16 lg:pt-14">
+        <div class="min-w-0">
+          <p class="eyebrow"><span class="blip"></span>Comércio eletrônico e informática · Manaus/AM</p>
+
+          <h1 class="hero-title mt-5 font-display font-extrabold">
+            <span class="chroma block">Tech</span>
+            <span class="chroma block">Commerce</span>
+            <span class="holo-text block">Solutions</span>
+          </h1>
+
+          <p class="mt-6 max-w-xl text-xl font-semibold leading-snug sm:text-2xl">Tecnologia que acelera o seu negócio e o seu jogo.</p>
+          <p class="mt-3 max-w-xl leading-relaxed text-muted">
+            Computadores, notebooks, periféricos e equipamentos gamer, com assistência técnica própria.
+            Hardware certo para <span id="typed" class="typed">trabalhar</span><span class="caret" aria-hidden="true"></span>
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#produtos" class="btn btn-primary btn-lg">
+              Conheça nossos produtos
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <button type="button" class="btn btn-ghost btn-lg" data-open-contact data-subject="Assistência técnica">Solicitar suporte</button>
+          </div>
+
+          <dl class="mt-10 grid max-w-xl grid-cols-3 gap-3">
+            <div class="stat">
+              <dt>Máquinas entregues</dt>
+              <dd><span data-count="12400" data-prefix="+">+12.400</span></dd>
+            </div>
+            <div class="stat">
+              <dt>Diagnóstico médio</dt>
+              <dd><span data-count="4">4</span><small>h</small></dd>
+            </div>
+            <div class="stat">
+              <dt>Satisfação</dt>
+              <dd><span data-count="98.7" data-decimals="1">98,7</span><small>%</small></dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Palco com camadas de informação em relevo (parallax com o mouse) -->
+        <div class="min-w-0">
+          <div id="stage" class="stage" aria-hidden="true">
+            <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+            <span class="orbit"></span>
+
+            <div class="layer layer-back" data-depth="14">
+              <div class="float" style="animation-delay:-1s">
+                <div class="holo-card relief plate-c2">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="hud-label">Benchmark · 1440p</span>
+                    <span class="hud-chip">ao vivo</span>
+                  </div>
+                  <p class="mt-2 font-display text-[1.6em] font-bold leading-none">165 <small class="font-mono text-[.5em] font-normal text-muted">FPS médios</small></p>
+                  <div class="eq mt-3">
+                    <i style="--h:.55;--d:0s"></i><i style="--h:.8;--d:-.4s"></i><i style="--h:.65;--d:-.8s"></i><i style="--h:.95;--d:-.2s"></i><i style="--h:.7;--d:-1s"></i><i style="--h:.85;--d:-.6s"></i><i style="--h:.6;--d:-1.3s"></i><i style="--h:.9;--d:-.9s"></i><i style="--h:.75;--d:-.3s"></i><i style="--h:.5;--d:-1.1s"></i>
+                  </div>
+                  <p class="mt-2 font-mono text-[.85em] text-muted">RTX 4070 Super · 12 GB GDDR6X</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="layer layer-mid" data-depth="30">
+              <div class="float" style="animation-delay:-3s">
+                <div class="holo-card relief plate-c1">
+                  <span class="hud-label">Assistência técnica</span>
+                  <div class="mt-3 flex items-center gap-3">
+                    <svg class="ring" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" class="ring-bg"/><circle cx="22" cy="22" r="18" class="ring-fg" pathLength="100" style="--p:99"/></svg>
+                    <div class="min-w-0">
+                      <p class="font-semibold leading-tight">Diagnóstico concluído</p>
+                      <p class="font-mono text-[.85em] text-muted">Saúde do SSD: 99%</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="layer layer-front" data-depth="52">
+              <div class="float" style="animation-delay:-5s">
+                <div class="holo-card relief plate-c3">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="hud-label">Pedido #48213</span>
+                    <span class="font-mono text-[.85em] text-c3">em rota</span>
+                  </div>
+                  <p class="mt-1 font-semibold">Notebook Vortex 15 Pro · Zona Norte</p>
+                  <ol class="track-steps mt-3">
+                    <li class="done"><span></span>Pago</li>
+                    <li class="done"><span></span>Separado</li>
+                    <li class="now"><span></span>Em rota</li>
+                    <li><span></span>Entregue</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Faixas cruzadas em movimento -->
+      <div class="ticker-zone" aria-hidden="true">
+        <div class="ticker ticker-back"><div class="ticker-track">
+          <span>Montagem sob medida</span><span>Garantia de 12 meses</span><span>Entrega em 24h em Manaus</span><span>Upgrade de GPU</span><span>Contrato de suporte</span><span>Recuperação de dados</span>
+          <span>Montagem sob medida</span><span>Garantia de 12 meses</span><span>Entrega em 24h em Manaus</span><span>Upgrade de GPU</span><span>Contrato de suporte</span><span>Recuperação de dados</span>
+        </div></div>
+        <div class="ticker ticker-front"><div class="ticker-track">
+          <span>Computadores</span><span>Notebooks</span><span>Periféricos</span><span>Equipamentos gamer</span><span>Manutenção</span><span>Suporte técnico</span>
+          <span>Computadores</span><span>Notebooks</span><span>Periféricos</span><span>Equipamentos gamer</span><span>Manutenção</span><span>Suporte técnico</span>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- ===================== 3. SERVIÇOS ===================== -->
+    <span class="anchor" id="servicos"></span>
+    <section class="section stack tint-1" data-section="servicos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow"><span class="blip"></span>Serviços</p>
+          <h2 class="section-title" data-decode>Do balcão ao data center</h2>
+          <p class="max-w-2xl leading-relaxed text-muted">Vendemos, montamos, consertamos e mantemos. Escolha a frente que a sua casa ou a sua empresa precisa.</p>
+        </div>
+        <!-- Cards gerados pelo componente ServiceCard() em js/script.js -->
+        <div id="services-grid" class="grid gap-x-7 gap-y-9 sm:grid-cols-2 xl:grid-cols-4"></div>
+      </div>
+    </section>
+
+    <!-- ===================== 4. PRODUTOS (CARROSSEL) ===================== -->
+    <span class="anchor" id="produtos"></span>
+    <section class="section stack tint-2" data-section="produtos">
+      <div class="wrap">
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <div class="section-head mb-0">
+            <p class="eyebrow"><span class="blip"></span>Produtos em destaque</p>
+            <h2 class="section-title" data-decode>Escolha o seu próximo setup</h2>
+            <p class="max-w-2xl leading-relaxed text-muted">Preços à vista no Pix ou em até 10x sem juros no cartão. Todos os equipamentos saem testados da nossa bancada.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="prev-btn" class="icon-btn icon-btn-lg" type="button" aria-label="Produtos anteriores">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+            </button>
+            <button id="next-btn" class="icon-btn icon-btn-lg" type="button" aria-label="Próximos produtos">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="product-filters" class="mt-8 flex flex-wrap gap-2" role="group" aria-label="Filtrar por categoria"></div>
+
+        <!-- Trilho do carrossel: cards gerados pelo componente ProductCard() -->
+        <div id="product-track" class="carousel-track" tabindex="0" aria-roledescription="carrossel" aria-label="Produtos em destaque. Use as setas do teclado para navegar."></div>
+
+        <div class="mt-2 flex items-center gap-4">
+          <div class="progress" aria-hidden="true"><span id="progress-thumb"></span></div>
+          <p id="carousel-status" class="shrink-0 font-mono text-xs tabular-nums text-muted" aria-live="polite">01–04 de 07</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 5. SOBRE A EMPRESA ===================== -->
+    <span class="anchor" id="sobre"></span>
+    <section class="section stack tint-3" data-section="sobre">
+      <div class="wrap grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+        <div class="min-w-0">
+          <p class="eyebrow"><span class="blip"></span>Sobre a empresa</p>
+          <h2 class="section-title" data-decode>Feita em Manaus, pensada para quem não pode parar</h2>
+          <p class="mt-5 leading-relaxed text-muted">A Tech Commerce Solutions nasceu em 2014 como uma bancada de manutenção na Zona Norte. Hoje une loja física, e-commerce e um time técnico que atende residências, escritórios e indústrias do Distrito Industrial.</p>
+          <p class="mt-4 leading-relaxed text-muted">Cada equipamento vendido passa por montagem, teste de estresse e laudo antes da entrega. É a mesma bancada que cuida do pós-venda.</p>
+
+          <dl class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
+            <div class="fact"><dt>Desde</dt><dd>2014</dd></div>
+            <div class="fact"><dt>Técnicos certificados</dt><dd>28</dd></div>
+            <div class="fact col-span-2 sm:col-span-1"><dt>Empresas atendidas</dt><dd>310+</dd></div>
+          </dl>
+        </div>
+
+        <!-- Missão, Visão e Valores em camadas sobrepostas -->
+        <div class="mvv min-w-0">
+          <article class="mvv-card relief plate-c1 tilt reveal">
+            <div class="flex items-center justify-between gap-3">
+              <h3 class="font-display text-xl font-bold">Missão</h3>
+              <span class="hud-label">M/01</span>
+            </div>
+            <p class="mt-3 leading-relaxed">Oferecer tecnologia confiável e suporte próximo, para que pessoas e empresas produzam mais e parem menos.</p>
+          </article>
+          <article class="mvv-card relief plate-c2 tilt reveal">
+            <div class="flex items-center justify-between gap-3">
+              <h3 class="font-display text-xl font-bold">Visão</h3>
+              <span class="hud-label">V/02</span>
+            </div>
+            <p class="mt-3 leading-relaxed">Ser a referência em soluções de informática da Região Norte até 2030, no balcão e no online.</p>
+          </article>
+          <article class="mvv-card relief plate-c3 tilt reveal">
+            <div class="flex items-center justify-between gap-3">
+              <h3 class="font-display text-xl font-bold">Valores</h3>
+              <span class="hud-label">V/03</span>
+            </div>
+            <ul class="value-list mt-3">
+              <li>Transparência no preço e no laudo</li>
+              <li>Atendimento humano, do primeiro contato ao pós-venda</li>
+              <li>Qualidade testada em bancada</li>
+              <li>Inovação contínua</li>
+              <li>Compromisso com prazos</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <!-- Chamada para suporte -->
+      <div class="wrap mt-16 sm:mt-24">
+        <div class="cta relief plate-mix reveal">
+          <div class="min-w-0">
+            <p class="hud-label">Suporte técnico</p>
+            <p class="mt-2 font-display text-2xl font-bold leading-tight sm:text-3xl" style="text-wrap:balance">Seu computador parou? Receba o diagnóstico em até 4 horas.</p>
+          </div>
+          <button type="button" class="btn btn-primary btn-lg shrink-0" data-open-contact data-subject="Assistência técnica">Abrir chamado</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== 6. RODAPÉ ===================== -->
+  <span class="anchor" id="rodape"></span>
+  <footer class="footer stack-foot" data-section="rodape">
+    <div class="wrap grid gap-10 pb-10 pt-16 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+      <div class="min-w-0">
+        <a href="#inicio" class="flex items-center gap-3" aria-label="Tech Commerce Solutions, voltar ao início">
+          <span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="font-display text-[15px] font-bold">Tech Commerce Solutions</span>
+        </a>
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-muted">Computadores, notebooks, periféricos, equipamentos gamer e suporte técnico para casa e empresa.</p>
+        <ul class="mt-5 flex gap-2" aria-label="Redes sociais">
+          <li><a class="social" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg></a></li>
+          <li><a class="social" href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 9h3v10H5zM6.5 4.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5zM10.5 9h2.9v1.4c.5-.9 1.6-1.6 3.2-1.6 3 0 3.4 2 3.4 4.4V19h-3v-5.1c0-1.2 0-2.6-1.6-2.6s-1.9 1.2-1.9 2.5V19h-3z"/></svg></a></li>
+          <li><a class="social" href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor"/></svg></a></li>
+          <li><a class="social" href="https://www.whatsapp.com/" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.1-4.2A8.5 8.5 0 1 1 20.5 12Z"/><path d="M9 8.8c.2 2.6 3.2 5.5 5.9 6l1-1.4-1.8-.9-.8.8c-1-.4-2.1-1.5-2.6-2.6l.8-.8-.9-1.8z" fill="currentColor" stroke="none"/></svg></a></li>
+        </ul>
+      </div>
+
+      <div class="min-w-0">
+        <h3 class="footer-title">Endereço</h3>
+        <address class="text-sm not-italic leading-relaxed text-muted">
+          Av. Noel Nutels, 1450, Loja 3<br>
+          Cidade Nova, Zona Norte<br>
+          Manaus/AM · CEP 69095-000
+        </address>
+        <p class="mt-3 text-sm text-muted">Seg. a sex. 8h–18h · Sáb. 8h–13h</p>
+      </div>
+
+      <div class="min-w-0">
+        <h3 class="footer-title">Contato</h3>
+        <ul class="grid gap-2 text-sm text-muted">
+          <li>Telefone: <span class="select-all text-fg">(92) 3232-4500</span></li>
+          <li>WhatsApp: <span class="select-all text-fg">(92) 99100-2026</span></li>
+          <li class="break-all">E-mail: <span class="select-all text-fg">contato@techcommercesolutions.com.br</span></li>
+        </ul>
+        <button type="button" class="btn btn-ghost mt-4" data-open-contact>Enviar mensagem</button>
+      </div>
+
+      <div class="min-w-0">
+        <h3 class="footer-title">Navegação</h3>
+        <ul class="grid gap-2 text-sm">
+          <li><a class="footer-link" href="#servicos">Serviços</a></li>
+          <li><a class="footer-link" href="#produtos">Produtos</a></li>
+          <li><a class="footer-link" href="#sobre">Sobre a empresa</a></li>
+          <li><a class="footer-link" href="#inicio">Voltar ao topo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap flex flex-wrap items-center justify-between gap-3 border-t border-line/10 py-6 text-xs text-muted">
+      <p>© <span id="year">2026</span> Tech Commerce Solutions. Todos os direitos reservados.</p>
+      <p class="font-mono">CNPJ 00.000.000/0001-00 · empresa fictícia para fins acadêmicos</p>
+    </div>
+  </footer>
+
+  <!-- Modal de contato (componente reutilizado por todos os botões "Contato") -->
+  <dialog id="contact-modal" class="modal" aria-labelledby="contact-title">
+    <div class="modal-card relief plate-c1">
+      <div class="modal-body">
+      <button type="button" class="icon-btn modal-close" data-close aria-label="Fechar">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+
+      <div id="contact-form-wrap">
+        <p class="hud-label">Contato</p>
+        <h2 id="contact-title" class="mt-2 font-display text-2xl font-bold">Fale com a Tech Commerce</h2>
+        <p class="mt-2 text-sm text-muted">Respondemos em até 1 dia útil.</p>
+
+        <form id="contact-form" class="mt-6 grid gap-4" novalidate>
+          <div class="field">
+            <label for="cf-name">Nome</label>
+            <input id="cf-name" name="nome" type="text" autocomplete="name" placeholder="Seu nome completo" required>
+            <p class="field-error" hidden>Informe seu nome.</p>
+          </div>
+          <div class="field">
+            <label for="cf-email">E-mail</label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" placeholder="voce@email.com" required>
+            <p class="field-error" hidden>Digite um e-mail válido, como voce@email.com.</p>
+          </div>
+          <div class="field">
+            <label for="cf-subject">Assunto</label>
+            <select id="cf-subject" name="assunto">
+              <option>Compra de equipamentos</option>
+              <option>Assistência técnica</option>
+              <option>Equipamentos gamer</option>
+              <option>Infraestrutura de TI</option>
+              <option>Outro assunto</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="cf-msg">Mensagem</label>
+            <textarea id="cf-msg" name="mensagem" rows="4" placeholder="Conte o que você precisa" required></textarea>
+            <p class="field-error" hidden>Escreva pelo menos 10 caracteres.</p>
+          </div>
+          <p class="form-error" hidden></p>
+          <button type="submit" class="btn btn-primary btn-lg justify-center">Enviar mensagem</button>
+        </form>
+      </div>
+
+      <div id="contact-success" class="py-6 text-center" hidden>
+        <div class="success-ring mx-auto" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        </div>
+        <h2 class="mt-5 font-display text-2xl font-bold">Mensagem registrada</h2>
+        <p class="mt-2 text-muted">Obrigado, <span id="success-name">cliente</span>. Nossa equipe responde em até 1 dia útil.</p>
+        <button type="button" class="btn btn-ghost mt-6" data-close>Fechar</button>
+      </div>
+      </div>
+    </div>
+  </dialog>
+
+
+  <!-- Gaveta do carrinho -->
+  <dialog id="cart-drawer" class="drawer" aria-labelledby="cart-title">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <div>
+          <p class="hud-label">Carrinho</p>
+          <h2 id="cart-title" class="mt-1 font-display text-xl font-bold">Seu carrinho</h2>
+        </div>
+        <button type="button" class="icon-btn" data-close aria-label="Fechar carrinho">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div id="cart-body" class="drawer-body"></div>
+      <div id="cart-foot" class="drawer-foot">
+        <div class="flex items-baseline justify-between gap-3">
+          <span class="text-sm text-muted">Total</span>
+          <strong id="cart-total" class="price">R$ 0,00</strong>
+        </div>
+        <p id="cart-installments" class="installments text-right"></p>
+        <button id="checkout-btn" type="button" class="btn btn-primary btn-lg w-full justify-center">Finalizar pedido</button>
+        <p id="checkout-note" class="text-center text-xs text-muted"></p>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Área de notificações (feedback visual) -->
+  <div id="toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
