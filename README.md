@@ -1,6 +1,6 @@
 # Tech Commerce Solutions · Portal Institucional
 
-Portal institucional responsivo para a **Tech Commerce Solutions**, empresa fictícia de comércio eletrônico e informática. O projeto foi desenvolvido para a **Atividade Prática 9 de Desenvolvimento Front End** (Prof. Jean Holguim), no estudo de caso "Modernização de Portal Institucional".
+Portal institucional responsivo para a **Tech Commerce Solutions**, empresa fictícia de comércio eletrônico e informática. 
 
 O visual é futurista, com camadas de cor sobrepostas, cards em relevo, seções em blocos e informações em movimento. O projeto é **somente front-end** (HTML, CSS com Tailwind e JavaScript puro), publicado na **Vercel** a partir deste repositório no **GitHub**.
 
